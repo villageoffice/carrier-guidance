@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career & Course Guidance Finder</title>
+    <style>
+        :root {
+            --primary-color: #4a00e0;
+            --secondary-color: #8e2de2;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #4a00e0;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, select:focus, textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.2);
+        }
+
+        .result-box {
+            margin-top: 30px;
+            background-color: #f9f9f9;
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .result-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        .prompt-text {
+            background-color: #eaeaea;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            background-color: #28a745;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>AI Career & Course Advisor 🎯</h2>
+    <form id="careerForm">
+        <div class="form-group">
+            <label>1. നിങ്ങളുടെ നിലവിലെ വിദ്യാഭ്യാസ യോഗ്യത:</label>
+            <input type="text" id="q1" placeholder="ഉദാ: Plus Two, BCom, BTech..." required>
+        </div>
+
+        <div class="form-group">
+            <label>2. ഏറ്റവും ഇഷ്ടപ്പെട്ട പഠനവിഷയങ്ങൾ:</label>
+            <input type="text" id="q2" placeholder="ഉദാ: കണക്ക്, കമ്പ്യൂട്ടർ, ആർട്സ്, സയൻസ്..." required>
+        </div>
+
+        <div class="form-group">
+            <label>3. പ്രധാന വിനോദങ്ങളും താല്പര്യങ്ങളും (Hobbies):</label>
+            <input type="text" id="q3" placeholder="ഉദാ: വായന, ഫോട്ടോഗ്രഫി, യാത്രകൾ, വിഡിയോ മേക്കിങ്...">
+        </div>
+
+        <div class="form-group">
+            <label>4. നിങ്ങളുടെ പ്രധാന കഴിവുകൾ (Skills):</label>
+            <input type="text" id="q4" placeholder="ഉദാ: കമ്മ്യൂണിക്കേഷൻ, കോഡിംഗ്, ഡ്രോയിങ്, പ്രോബ്ലം സോൾവിങ്..." required>
+        </div>
+
+        <div class="form-group">
+            <label>5. താല്പര്യമുള്ള ജോലി സാഹചര്യം:</label>
+            <select id="q5">
+                <option value="ആഫീസ് ജോലി (Corporate Office)">ആഫീസ് ജോലി (Corporate Office)</option>
+                <option value="വർക്ക് ഫ്രം ഹോം (Remote/WFH)">വർക്ക് ഫ്രം ഹോം (Remote/WFH)</option>
+                <option value="ഔട്ട്ഡോർ ഫീൽഡ് വർക്ക് (Field work/Travel)">ഔട്ട്ഡോർ ഫീൽഡ് വർക്ക് (Field work/Travel)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>6. ജോലിയുടെ സ്വഭാവം എങ്ങനെ ആയിരിക്കണം?</label>
+            <select id="q6">
+                <option value="സാങ്കേതിക താല്പര്യമുള്ളവ (Technical)">സാങ്കേതിക താല്പര്യമുള്ളവ (Technical)</option>
+                <option value="സർഗ്ഗാത്മകത ഉള്ളവ (Creative)">സർഗ്ഗാത്മകത ഉള്ളവ (Creative)</option>
+                <option value="ആളുകളുമായി ഇടപെടുന്നവ (People Management/Sales)">ആളുകളുമായി ഇടപെടുന്നവ (People Management/Sales)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>7. കോഴ്സുകൾക്കായുള്ള ബഡ്ജറ്റ്:</label>
+            <select id="q7">
+                <option value="കുറഞ്ഞ ചിലവിലുള്ളവ (Low Budget / Govt Colleges)">കുറഞ്ഞ ചിലവിലുള്ളവ (Low Budget)</option>
+                <option value="ഇടത്തരം ബഡ്ജറ്റ് (Medium Budget)">ഇടത്തരം ബഡ്ജറ്റ് (Medium Budget)</option>
+                <option value="ഉയർന്ന ബഡ്ജറ്റ് (High Budget / Private / Abroad)">ഉയർന്ന ബഡ്ജറ്റ് (High Budget)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>8. മറ്റ് സ്ഥലങ്ങളിലേക്ക് മാറാൻ താല്പര്യമുണ്ടോ?</label>
+            <select id="q8">
+                <option value="കേരളത്തിനുള്ളിൽ മാത്രം">കേരളത്തിനുള്ളിൽ മാത്രം</option>
+                <option value="ഇന്ത്യയിലെ പ്രമുഖ നഗരങ്ങൾ (Bangalore, Chennai etc.)">ഇന്ത്യയിലെ പ്രമുഖ നഗരങ്ങൾ</option>
+                <option value="വിദേശത്ത് പോകാൻ താല്പര്യമുണ്ട് (Abroad)">വിദേശത്ത് പോകാൻ താല്പര്യമുണ്ട്</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>9. ജോലി രീതി ഏതാണ് താല്പര്യം?</label>
+            <select id="q9">
+                <option value="സ്ഥിരതയുള്ള 9-to-5 ജോലി">സ്ഥിരതയുള്ള 9-to-5 ജോലി</option>
+                <option value="ഫ്രീലാൻസിങ് / സ്വന്തം ബിസിനസ്സ്">ഫ്രീലാൻസിങ് / സ്വന്തം ബിസിനസ്സ്</option>
+            </select>
+        </div>
+
+        <button type="button" onclick="generatePrompt()">Generate Gemini AI Prompt</button>
+    </form>
+
+    <div class="result-box" id="resultBox">
+        <h3>Gemini AI-ലേക്ക് കോപ്പി ചെയ്യാനുള്ള പ്രോംപ്റ്റ്:</h3>
+        <p style="font-size: 14px; color: #666;">താഴെ കാണുന്ന പ്രോംപ്റ്റ് കോപ്പി ചെയ്ത് Gemini AI-ൽ പേസ്റ്റ് ചെയ്യുക. നിങ്ങൾക്ക് കൃത്യമായ മറുപടി ലഭിക്കും.</p>
+        <div class="prompt-text" id="promptOutput"></div>
+        <button class="copy-btn" onclick="copyToClipboard()">Copy Prompt</button>
+    </div>
+</div>
+
+<script>
+    function generatePrompt() {
+        const q1 = document.getElementById('q1').value;
+        const q2 = document.getElementById('q2').value;
+        const q3 = document.getElementById('q3').value;
+        const q4 = document.getElementById('q4').value;
+        const q5 = document.getElementById('q5').value;
+        const q6 = document.getElementById('q6').value;
+        const q7 = document.getElementById('q7').value;
+        const q8 = document.getElementById('q8').value;
+        const q9 = document.getElementById('q9').value;
+
+        if(!q1 || !q2 || !q4) {
+            alert("ദയവായി പ്രധാന ചോദ്യങ്ങൾക്ക് മറുപടി നൽകുക!");
+            return;
+        }
+
+        const prompt = `ഹലോ Gemini, എനിക്ക് അനുയോജ്യമായ ഏറ്റവും മികച്ച 3 ജോലികളും (Careers) അവയിലേക്ക് എത്തിച്ചേരാൻ പഠിക്കേണ്ട 3 മികച്ച കോഴ്സുകളും (Courses) നിർദ്ദേശിക്കാമോ? എന്റെ വിവരങ്ങൾ താഴെ നൽകുന്നു:
+
+1. നിലവിലെ വിദ്യാഭ്യാസം: ${q1}
+2. ഇഷ്ടവിഷയങ്ങൾ: ${q2}
+3. വിനോദങ്ങൾ/താല്പര്യങ്ങൾ: ${q3}
+4. പ്രധാന കഴിവുകൾ: ${q4}
+5. ആഗ്രഹിക്കുന്ന ജോലി സാഹചര്യം: ${q5}
+6. ജോലിയുടെ സ്വഭാവം: ${q6}
+7. കോഴ്സ് ബഡ്ജറ്റ്: ${q7}
+8. താല്പര്യമുള്ള സ്ഥലം: ${q8}
+9. കരിയർ രീതി: ${q9}
+
+ദയവായി കരിയർ സാധ്യതകളും, മികച്ച കോഴ്സുകളും, അവ പഠിക്കാൻ പറ്റിയ സ്ഥാപനങ്ങളും മലയാളത്തിൽ വിശദമായി പറഞ്ഞു തരിക.`;
+
+        document.getElementById('promptOutput').innerText = prompt;
+        document.getElementById('resultBox').style.display = 'block';
+        
+        // Scroll to results
+        document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyToClipboard() {
+        const promptText = document.getElementById('promptOutput').innerText;
+        navigator.clipboard.writeText(promptText).then(() => {
+            alert("Prompt കോപ്പി ചെയ്തിട്ടുണ്ട്! ഇനി ഇത് Gemini AI-ൽ പേസ്റ്റ് ചെയ്യാം.");
+        }).catch(err => {
+            alert("കോപ്പി ചെയ്യാൻ സാധിച്ചില്ല, ദയവായി മാനുവലായി സെലക്ട് ചെയ്ത് കോപ്പി ചെയ്യുക.");
+        });
+    }
+</script>
+
+</body>
+</html>
