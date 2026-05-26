@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Career & Course Guidance Finder</title>
+    <title>AI Career & Course Guidance Finder (ChatGPT Version)</title>
     <style>
         :root {
-            --primary-color: #4a00e0;
-            --secondary-color: #8e2de2;
+            --primary-color: #10a37f; /* ChatGPT Green */
+            --secondary-color: #1a73e8;
             --bg-color: #f4f7f6;
             --text-color: #333;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: var(--text-color);
             margin: 0;
             padding: 20px;
@@ -28,14 +28,14 @@
             background-color: #ffffff;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 700px;
         }
 
         h2 {
             text-align: center;
-            color: #4a00e0;
+            color: #10a37f;
             margin-bottom: 30px;
             font-size: 28px;
         }
@@ -51,7 +51,7 @@
             color: #555;
         }
 
-        input[type="text"], select, textarea {
+        input[type="text"], select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e0e0e0;
@@ -61,13 +61,14 @@
             transition: border-color 0.3s ease;
         }
 
-        input[type="text"]:focus, select:focus, textarea:focus {
-            border-color: var(--primary-color);
+        input[type="text"]:focus, select:focus {
+            border-color: #10a37f;
             outline: none;
         }
 
-        button {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        /* പ്രധാന ആക്ഷൻ ബട്ടൺ */
+        .main-btn {
+            background: linear-gradient(135deg, #10a37f, #0d8a6b);
             color: white;
             border: none;
             padding: 15px 20px;
@@ -80,7 +81,7 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        button:hover {
+        .main-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 7px 20px rgba(0,0,0,0.2);
         }
@@ -88,7 +89,7 @@
         .result-box {
             margin-top: 30px;
             background-color: #f9f9f9;
-            border-left: 5px solid var(--primary-color);
+            border-left: 5px solid #10a37f;
             padding: 20px;
             border-radius: 5px;
             display: none;
@@ -96,7 +97,7 @@
 
         .result-box h3 {
             margin-top: 0;
-            color: var(--primary-color);
+            color: #10a37f;
         }
 
         .prompt-text {
@@ -107,22 +108,36 @@
             white-space: pre-wrap;
             font-size: 14px;
             border: 1px solid #ccc;
-            max-height: 250px;
+            max-height: 180px;
             overflow-y: auto;
+            margin-bottom: 15px;
         }
 
-        .copy-btn {
-            background-color: #28a745;
-            margin-top: 10px;
-            padding: 10px;
-            font-size: 15px;
+        .chatgpt-open-btn {
+            background-color: #10a37f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .chatgpt-open-btn:hover {
+            background-color: #0d8a6b;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>AI Career & Course Advisor 🎯</h2>
+    <h2>ChatGPT Career & Course Advisor 🎯</h2>
     <form id="careerForm">
         <div class="form-group">
             <label>1. നിങ്ങളുടെ നിലവിലെ വിദ്യാഭ്യാസ യോഗ്യത:</label>
@@ -136,12 +151,12 @@
 
         <div class="form-group">
             <label>3. പ്രധാന വിനോദങ്ങളും താല്പര്യങ്ങളും (Hobbies):</label>
-            <input type="text" id="q3" placeholder="ഉദാ: വായന, ഫോട്ടോഗ്രഫി, യാത്രകൾ, വിഡിയോ മേക്കിങ്...">
+            <input type="text" id="q3" placeholder="ഉദാ: വായന, ഫോട്ടോഗ്രഫി, യാത്രകൾ...">
         </div>
 
         <div class="form-group">
             <label>4. നിങ്ങളുടെ പ്രധാന കഴിവുകൾ (Skills):</label>
-            <input type="text" id="q4" placeholder="ഉദാ: കമ്മ്യൂണിക്കേഷൻ, കോഡിംഗ്, ഡ്രോയിങ്, പ്രോബ്ലം സോൾവിങ്..." required>
+            <input type="text" id="q4" placeholder="ഉദാ: കമ്മ്യൂണിക്കേഷൻ, കോഡിംഗ്, പ്രോബ്ലം സോൾവിങ്..." required>
         </div>
 
         <div class="form-group">
@@ -149,7 +164,7 @@
             <select id="q5">
                 <option value="ആഫീസ് ജോലി (Corporate Office)">ആഫീസ് ജോലി (Corporate Office)</option>
                 <option value="വർക്ക് ഫ്രം ഹോം (Remote/WFH)">വർക്ക് ഫ്രം ഹോം (Remote/WFH)</option>
-                <option value="ഔട്ട്ഡോർ ഫീൽഡ് വർക്ക് (Field work/Travel)">ഔട്ട്ഡോർ ഫീൽഡ് വർക്ക് (Field work/Travel)</option>
+                <option value="ഔっとഡോർ ഫീൽഡ് വർക്ക് (Field work/Travel)">ഔട്ട്ഡോർ ഫീൽഡ് വർക്ക് (Field work/Travel)</option>
             </select>
         </div>
 
@@ -188,19 +203,22 @@
             </select>
         </div>
 
-        <button type="button" onclick="generatePrompt()">Generate Gemini AI Prompt</button>
+        <button type="button" class="main-btn" onclick="sendToChatGPT()">Open & Run in ChatGPT 🚀</button>
     </form>
 
     <div class="result-box" id="resultBox">
-        <h3>Gemini AI-ലേക്ക് കോപ്പി ചെയ്യാനുള്ള പ്രോംപ്റ്റ്:</h3>
-        <p style="font-size: 14px; color: #666;">താഴെ കാണുന്ന പ്രോംപ്റ്റ് കോപ്പി ചെയ്ത് Gemini AI-ൽ പേസ്റ്റ് ചെയ്യുക. നിങ്ങൾക്ക് കൃത്യമായ മറുപടി ലഭിക്കും.</p>
+        <h3>തയ്യാറാക്കിയ പ്രോംപ്റ്റ്:</h3>
         <div class="prompt-text" id="promptOutput"></div>
-        <button class="copy-btn" onclick="copyToClipboard()">Copy Prompt</button>
+        <button class="chatgpt-open-btn" onclick="openChatGPTDirect()">
+            🤖 ChatGPT വീണ്ടും തുറക്കാൻ ഇവിടെ ക്ലിക്ക് ചെയ്യുക
+        </button>
     </div>
 </div>
 
 <script>
-    function generatePrompt() {
+    let finalPrompt = "";
+
+    function sendToChatGPT() {
         const q1 = document.getElementById('q1').value;
         const q2 = document.getElementById('q2').value;
         const q3 = document.getElementById('q3').value;
@@ -216,7 +234,7 @@
             return;
         }
 
-        const prompt = `ഹലോ Gemini, എനിക്ക് അനുയോജ്യമായ ഏറ്റവും മികച്ച 3 ജോലികളും (Careers) അവയിലേക്ക് എത്തിച്ചേരാൻ പഠിക്കേണ്ട 3 മികച്ച കോഴ്സുകളും (Courses) നിർദ്ദേശിക്കാമോ? എന്റെ വിവരങ്ങൾ താഴെ നൽകുന്നു:
+        finalPrompt = `ഹലോ ChatGPT, എന്റെ പ്രൊഫൈലിന് അനുയോജ്യമായ ഏറ്റവും മികച്ച 3 ജോലികളും (Careers) അവയിലേക്ക് എത്തിച്ചേരാൻ പഠിക്കേണ്ട 3 മികച്ച കോഴ്സുകളും (Courses) നിർദ്ദേശിക്കാമോ? എന്റെ വിവരങ്ങൾ താഴെ നൽകുന്നു:
 
 1. നിലവിലെ വിദ്യാഭ്യാസം: ${q1}
 2. ഇഷ്ടവിഷയങ്ങൾ: ${q2}
@@ -230,20 +248,20 @@
 
 ദയവായി കരിയർ സാധ്യതകളും, മികച്ച കോഴ്സുകളും, അവ പഠിക്കാൻ പറ്റിയ സ്ഥാപനങ്ങളും മലയാളത്തിൽ വിശദമായി പറഞ്ഞു തരിക.`;
 
-        document.getElementById('promptOutput').innerText = prompt;
+        document.getElementById('promptOutput').innerText = finalPrompt;
         document.getElementById('resultBox').style.display = 'block';
-        
-        // Scroll to results
-        document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
+
+        // പ്രോംപ്റ്റ് ബാക്കപ്പ് ആയി ക്ലിപ്ബോർഡിലേക്കും കോപ്പി ചെയ്യുന്നു
+        navigator.clipboard.writeText(finalPrompt);
+
+        // ChatGPT ഡയറക്ട് ഓപ്പണിങ് ലിങ്ക് റൺ ചെയ്യുന്നു
+        openChatGPTDirect();
     }
 
-    function copyToClipboard() {
-        const promptText = document.getElementById('promptOutput').innerText;
-        navigator.clipboard.writeText(promptText).then(() => {
-            alert("Prompt കോപ്പി ചെയ്തിട്ടുണ്ട്! ഇനി ഇത് Gemini AI-ൽ പേസ്റ്റ് ചെയ്യാം.");
-        }).catch(err => {
-            alert("കോപ്പി ചെയ്യാൻ സാധിച്ചില്ല, ദയവായി മാനുവലായി സെലക്ട് ചെയ്ത് കോപ്പി ചെയ്യുക.");
-        });
+    function openChatGPTDirect() {
+        // ChatGPT-ലേക്ക് ഡാറ്റ നേരിട്ട് കൈമാറാനുള്ള ഒഫീഷ്യൽ ഇൻ്റഗ്രേഷൻ ലിങ്ക്
+        const chatGPTUrl = "https://chatgpt.com/?q=" + encodeURIComponent(finalPrompt);
+        window.open(chatGPTUrl, "_blank");
     }
 </script>
 
